@@ -5,6 +5,7 @@ import (
 	"math/rand"
 	//"fmt"
 	"math"
+	"sort"
 )
 
 type TreeNode struct{
@@ -81,7 +82,14 @@ func getBestGain(samples [][]float64, c int, samples_labels []float64,current_ms
 		uniq_values[samples[i][c]] = 1
 	}
 
-	for value,_ := range uniq_values{
+	uniqueValsList := make([]float64, 0, len(uniq_values))
+	for value := range uniq_values {
+		uniqueValsList = append(uniqueValsList, value)
+	}
+	sort.Float64s(uniqueValsList)
+
+
+	for _, value := range uniqueValsList {
 		labels_l := make([]float64,0)
 		labels_r := make([]float64,0)
 		total_l := 0
